@@ -4,5 +4,8 @@
   "main": "index.js",
   "author": "Sam Gbafa <skgbafa@gmail.com>",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "typescript": "^4.5.4"
+  }
 }
