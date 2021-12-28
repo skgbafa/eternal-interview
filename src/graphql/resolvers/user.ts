@@ -1,7 +1,7 @@
 const resolvers = {
-    Mutation: {},
-    Query: {
-    },
+  Mutation: {},
+  Query: {
+  },
 };
   
 export default resolvers;

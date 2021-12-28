@@ -1,4 +1,4 @@
-import { GraphQLResolveInfo } from "graphql";
+import { GraphQLResolveInfo } from 'graphql';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -15,41 +15,41 @@ export type Scalars = {
 };
 
 export type AuthResponse = {
-  __typename?: "AuthResponse";
-  token: Scalars["String"];
+  __typename?: 'AuthResponse';
+  token: Scalars['String'];
   user: User;
 };
 
 export type Mutation = {
-  __typename?: "Mutation";
+  __typename?: 'Mutation';
   register?: Maybe<User>;
 };
 
 
 export type MutationRegisterArgs = {
-  email: Scalars["String"];
-  password: Scalars["String"];
+  email: Scalars['String'];
+  password: Scalars['String'];
 };
 
 export type Query = {
-  __typename?: "Query";
+  __typename?: 'Query';
   login?: Maybe<User>;
 };
 
 
 export type QueryLoginArgs = {
-  email: Scalars["String"];
-  password: Scalars["String"];
+  email: Scalars['String'];
+  password: Scalars['String'];
 };
 
 export type User = {
-  __typename?: "User";
-  email: Scalars["String"];
-  followerCount: Scalars["Int"];
+  __typename?: 'User';
+  email: Scalars['String'];
+  followerCount: Scalars['Int'];
   followers: Array<User>;
-  id: Scalars["ID"];
-  name: Scalars["String"];
-  walletAddress: Scalars["String"];
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  walletAddress: Scalars['String'];
 };
 
 
@@ -122,48 +122,48 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   AuthResponse: ResolverTypeWrapper<AuthResponse>;
-  Boolean: ResolverTypeWrapper<Scalars["Boolean"]>;
-  ID: ResolverTypeWrapper<Scalars["ID"]>;
-  Int: ResolverTypeWrapper<Scalars["Int"]>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
-  String: ResolverTypeWrapper<Scalars["String"]>;
+  String: ResolverTypeWrapper<Scalars['String']>;
   User: ResolverTypeWrapper<User>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   AuthResponse: AuthResponse;
-  Boolean: Scalars["Boolean"];
-  ID: Scalars["ID"];
-  Int: Scalars["Int"];
+  Boolean: Scalars['Boolean'];
+  ID: Scalars['ID'];
+  Int: Scalars['Int'];
   Mutation: {};
   Query: {};
-  String: Scalars["String"];
+  String: Scalars['String'];
   User: User;
 };
 
-export type AuthResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes["AuthResponse"] = ResolversParentTypes["AuthResponse"]> = {
-  token?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
-  user?: Resolver<ResolversTypes["User"], ParentType, ContextType>;
+export type AuthResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['AuthResponse'] = ResolversParentTypes['AuthResponse']> = {
+  token?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes["Mutation"] = ResolversParentTypes["Mutation"]> = {
-  register?: Resolver<Maybe<ResolversTypes["User"]>, ParentType, ContextType, RequireFields<MutationRegisterArgs, "email" | "password">>;
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  register?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationRegisterArgs, 'email' | 'password'>>;
 };
 
-export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes["Query"] = ResolversParentTypes["Query"]> = {
-  login?: Resolver<Maybe<ResolversTypes["User"]>, ParentType, ContextType, RequireFields<QueryLoginArgs, "email" | "password">>;
+export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  login?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryLoginArgs, 'email' | 'password'>>;
 };
 
-export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes["User"] = ResolversParentTypes["User"]> = {
-  email?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
-  followerCount?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
-  followers?: Resolver<Array<ResolversTypes["User"]>, ParentType, ContextType>;
-  id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
-  name?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
-  walletAddress?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  followerCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  followers?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  walletAddress?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
