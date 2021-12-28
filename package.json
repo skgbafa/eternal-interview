@@ -30,6 +30,7 @@
     "start": "node dist",
     "prestart": "yarn build",
     "build": "tsc",
+    "lint": "eslint \"src/**/*.ts?(x)\" --fix",
     "watch": "tsc -w & nodemon dist",
     "codegen": "graphql-codegen --config codegen.yml"
   }

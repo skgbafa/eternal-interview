@@ -1,7 +1,7 @@
 import { ApolloServer, gql} from "apollo-server-express";
 import {
     ApolloServerPluginLandingPageGraphQLPlayground
-  } from "apollo-server-core";
+} from "apollo-server-core";
   
 import schema  from "./schema";
 // import { typeDefs } from "./graphql/schema";
@@ -35,7 +35,7 @@ export default async (app: any, context: any) => {
         }),
         plugins: [
             ApolloServerPluginLandingPageGraphQLPlayground(),
-          ],
+        ],
         schema,
     });
     
