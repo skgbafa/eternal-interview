@@ -1,0 +1,8 @@
+{
+  "name": "eternal-interview",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Sam Gbafa <skgbafa@gmail.com>",
+  "license": "MIT",
+  "private": true
+}
