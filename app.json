@@ -1,0 +1,11 @@
+{
+    "name": "Eternal Interveiw",
+    "description": "Sam Gbafa's API server for the Eternal Team",
+    "keywords": ["eternal", "interview", "api", "server"],
+    "repository": "https://github.com/skgbafa/eternal-interview",
+    "success_url": "/",
+    "env": {},
+    "image": "heroku/nodejs",
+    "addons": []
+  }
+  
