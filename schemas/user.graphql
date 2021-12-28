@@ -1,0 +1,22 @@
+type Query {
+    login(email: String!, password: String!): AuthResponse
+}
+
+type Mutation {
+    register(email: String!, password: String!): AuthResponse
+}
+
+type AuthResponse {
+  token: String!
+  message: String!
+  user: User
+}
+
+type User {
+    id: ID!
+    email: String!
+    name: String!
+    walletAddress: String!
+    followerCount: Int!
+    followers: [User!]!
+}

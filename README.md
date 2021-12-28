@@ -14,4 +14,17 @@ This is just a plan, for now...
 
 
 ## Deployment
-This app is deloyed on heroku at https://eternal-interveiw.herokuapp.com/
+This app is deloyed on heroku at https://eternal-interveiw.herokuapp.com/graphql
+
+
+## Testing
+Below are some queries for testing the graphql endpoint
+### Login
+```graphql
+query {
+  login(email:"skgbafa@gmail.com", password:"abc123") {
+    token
+    message
+  }
+}
+```
