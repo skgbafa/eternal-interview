@@ -3,17 +3,19 @@ type Query {
 }
 
 type Mutation {
-    register(email: String!, password: String!): AuthResponse
+    register(name: String!, email: String!, password: String!, walletAddress: String!): AuthResponse
+
 }
 
 type AuthResponse {
-  token: String!
+  success: Boolean!
   message: String!
+  token: String
   user: User
 }
 
 type User {
-    id: ID!
+    _id: ID!
     email: String!
     name: String!
     walletAddress: String!
