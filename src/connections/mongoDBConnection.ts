@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import * as mongoDB from 'mongodb';
 import { ObjectId, Collection } from 'mongodb';
+
 class User {
   constructor(
     public name: string,
@@ -18,7 +19,6 @@ class Follower {
     public id?: ObjectId) {}
 }
 
-const collections: { users?: Collection, followers?: Collection } = {};
 class MongoDBConnection {
   private client: mongoDB.MongoClient;
   private database: mongoDB.Db | undefined;
@@ -96,4 +96,4 @@ class MongoDBConnection {
 
 
 export default MongoDBConnection;
-export { MongoDBConnection, User, Follower, collections};
+export { MongoDBConnection, User, Follower};

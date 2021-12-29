@@ -46,7 +46,8 @@ class UserDataSource extends DataSource {
       };
     
     } catch (error) {
-      const  message = error && (error as Error).message || 'Unknown error';
+      const message = error && (error as Error).message || 'Unknown error';
+
       return {
         success: false,
         message,
@@ -54,10 +55,6 @@ class UserDataSource extends DataSource {
         user: null,
       };
     }
-    
-
-   
-  
   }
 
   public async login(email: string, password: string) {
@@ -67,6 +64,7 @@ class UserDataSource extends DataSource {
       }
       
       const user = await this.mongoDBConnection.login(email, password);
+      
       if (!user) {
         throw new Error('Invalid email or password');
       }
