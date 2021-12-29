@@ -5,6 +5,9 @@ const resolvers = {
     }
   },
   Query: {
+    login: (_: any, { email, password }: any, { dataSources }: any) => {
+      return dataSources.userDatasource.login(email, password);
+    }
   },
 };
   

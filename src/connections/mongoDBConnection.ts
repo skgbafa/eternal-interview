@@ -9,7 +9,7 @@ class User {
     public walletAddress: string,
     public followerCount: number = 0,
     public followers: Array<User> = [],
-    public id?: ObjectId) {}
+    public _id?: ObjectId) {}
 }
 class Follower {
   constructor(
