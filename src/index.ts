@@ -1,11 +1,15 @@
 import express from 'express';
 import config from './config';
+
 import initializeGraphQL from './graphql';
+import MongoDBConnection from './connections/MongoDBConnection';
 
 const { port } = config;
-const context = { config };
 
 const app = express();
+const mongoDBConnection = new MongoDBConnection(config);
+
+const context = { config, mongoDBConnection };
 
 initializeGraphQL(app, context).then(() => {
   app.get('/', (req, res) => {

@@ -23,8 +23,31 @@ Below are some queries for testing the graphql endpoint
 ```graphql
 query {
   login(email:"skgbafa@gmail.com", password:"abc123") {
+    success
     token
     message
   }
 }
 ```
+
+### Register
+```graphql
+mutation {
+  register(name: "sam", email:"skgbafa@gmail.com", password:"eternal123", walletAddress: "0x123f") {
+    success
+    token
+    message
+    user {
+      _id
+      email
+      name
+      walletAddress
+      followerCount
+      followers{
+        name
+      }
+    }
+  }
+}
+```
+
