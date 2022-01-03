@@ -22,7 +22,7 @@ Below are some queries for testing the graphql endpoint
 ### Login
 ```graphql
 query {
-  login(email:"skgbafa@gmail.com", password:"abc123") {
+  login(email:"skgbafa@gmail.com", password:"eternal123") {
     success
     token
     message
