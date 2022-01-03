@@ -4,13 +4,14 @@ import validator from 'validator';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-import { MongoDBConnection, User } from '../connections/MongoDBConnection';
 import config from '../config';
+import { DBConnection, User } from '../connections/types';
+
 
 
 class UserDataSource extends DataSource {
-  private mongoDBConnection: MongoDBConnection;
-  constructor(mongoDBConnection: MongoDBConnection) {
+  private mongoDBConnection: DBConnection;
+  constructor(mongoDBConnection: DBConnection) {
     super();
     this.mongoDBConnection = mongoDBConnection;
   }

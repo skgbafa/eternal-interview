@@ -2,7 +2,7 @@ import express from 'express';
 import config from './config';
 
 import initializeGraphQL from './graphql';
-import MongoDBConnection from './connections/MongoDBConnection';
+import MongoDBConnection from './connections/mongoDBConnection';
 
 const { port } = config;
 

@@ -2,24 +2,8 @@ import bcrypt from 'bcrypt';
 import * as mongoDB from 'mongodb';
 import { ObjectId, Collection } from 'mongodb';
 
-class User {
-  constructor(
-    public name: string,
-    public email: string,
-    private password: string,
-    public walletAddress: string,
-    public followerCount: number = 0,
-    public followers: Array<User> = [],
-    public _id?: ObjectId) {}
-}
-class Follower {
-  constructor(
-    public leader: ObjectId,
-    public follower: ObjectId,
-    public id?: ObjectId) {}
-}
-
-class MongoDBConnection {
+import { User, Follower, DBConnection } from './types';
+class MongoDBConnection implements DBConnection{
   private client: mongoDB.MongoClient;
   private database: mongoDB.Db | undefined;
   private collections: {
@@ -96,4 +80,4 @@ class MongoDBConnection {
 
 
 export default MongoDBConnection;
-export { MongoDBConnection, User, Follower};
+// export { MongoDBConnection, User, Follower, DBConnection };

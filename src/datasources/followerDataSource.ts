@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { DataSource } from 'apollo-datasource';
-import MongoDBConnection from '../connections/MongoDBConnection';
+import { DBConnection } from '../connections/types';
 
 class FollowerDataSource extends DataSource {
 
-  private mongoDBConnection: MongoDBConnection;
-  constructor(mongoDBConnection: MongoDBConnection) {
+  private mongoDBConnection: DBConnection;
+  constructor(mongoDBConnection: DBConnection) {
     super();
     this.mongoDBConnection = mongoDBConnection;
   }
