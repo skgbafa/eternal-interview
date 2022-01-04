@@ -1,16 +1,14 @@
 # Eternal Demo Server
 
 ## Overview
-This is a server setup to showcase my ability and considerations when working on a beackend server! It's pretty minimal, but should do the following:
+This is a server setup to showcase my ability and considerations when working on a backend server! It's implemented with typescript and graphql, with a mongo backend (MongoDB Atlas). Hosted on Heroku. It's pretty minimal, but should do the following:
 
-- Registration
-- Authentication
-- Fetch/Update User Account Data
-- Add/remove followers to a user
-
-I plan to implement this using typescript and graphql, with a mongo backend. Will probs host this on heroku for demo purposes. 
-
-This is just a plan, for now...
+- [x] Registration
+- [x] Authentication
+- [x] Fetch User Account Data
+- [ ] Update User Account Data
+- [ ] Add followers to a user
+- [ ] Remove followers to a user
 
 
 ## Deployment
