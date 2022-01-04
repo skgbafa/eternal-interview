@@ -12,9 +12,7 @@ export default async (app: any, context: any) => {
   const followerDataSource = new FollowerDataSource(mongoDBConnection);
 
   const server = new ApolloServer({
-    // context: ({ req }: any) => {
-    //   return {};
-    // },
+    context: ({ req }: any) => ({ user: req.user }),
     dataSources: () => ({
       userDatasource: userDataSource,
       followerDatasource: followerDataSource,

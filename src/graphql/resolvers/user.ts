@@ -1,3 +1,9 @@
+const validateUser = (user: any) => {
+  if (!user) {
+    throw new Error('Must be authenticated.');
+  }
+};
+
 const resolvers = {
   Mutation: {
     register: (_: any, {
@@ -6,6 +12,10 @@ const resolvers = {
   },
   Query: {
     login: (_: any, { email, password }: any, { dataSources }: any) => dataSources.userDatasource.login(email, password),
+    getUser: (_: any, { id }: any, { dataSources, user }: any) => {
+      validateUser(user);
+      return dataSources.userDatasource.getUser(id);
+    },
   },
 };
 
