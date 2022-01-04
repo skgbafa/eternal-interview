@@ -1,16 +1,14 @@
 # Eternal Demo Server
 
 ## Overview
-This is a server setup to showcase my ability and considerations when working on a beackend server! It's pretty minimal, but should do the following:
+This is a server setup to showcase my ability and considerations when working on a backend server. It's implemented with typescript and graphql, with a mongo backend (MongoDB Atlas). Hosted on Heroku. It's pretty minimal, but should do the following:
 
-- Registration
-- Authentication
-- Fetch/Update User Account Data
-- Add/remove followers to a user
-
-I plan to implement this using typescript and graphql, with a mongo backend. Will probs host this on heroku for demo purposes. 
-
-This is just a plan, for now...
+- [x] Registration
+- [x] Authentication
+- [x] Fetch User Account Data
+- [ ] Update User Account Data
+- [ ] Add followers to a user
+- [ ] Remove followers to a user
 
 
 ## Deployment
@@ -19,6 +17,18 @@ This app is deloyed on heroku at https://eternal-interveiw.herokuapp.com/graphql
 
 ## Testing
 Below are some queries for testing the graphql endpoint
+
+### Query Variables
+Updated at the bottom left corner. These are variables injected into the query. This set should work for `login`, `register`, and `getUser` queries.
+```json
+{
+  "id": "61cbd5ca7a27eac7c494eb5b",
+  "name": "Sam",
+  "email": "skgbafa+1@gmail.com",
+  "password": "eternal123",
+  "walletAddress": "0xabc123"
+}
+```
 
 ### HTTP Headers
 Updated at the bottom left. These headers are used for non-login and registration requests. Fee free to replace the auth token (the jwt text after "Bearer ") with the `token` recieved from the login or registration requests.
@@ -30,8 +40,9 @@ Updated at the bottom left. These headers are used for non-login and registratio
 
 ### Login
 ```graphql
-query login {
-  login(email:"skgbafa@gmail.com", password:"eternal123") {
+query login($email: String!, $password: String!) {
+  login(email: $email, password: $password) {
+
     success
     token
     message
@@ -41,8 +52,8 @@ query login {
 
 ### Register
 ```graphql
-mutation register {
-  register(name: "sam", email:"skgbafa+3@gmail.com", password:"eternal123", walletAddress: "0x123f") {
+mutation register($name: String!, $email: String!, $password: String!, $walletAddress: String!) {
+  register (name: $name, email: $email, password: $password, walletAddress: $walletAddress) {
     success
     token
     message
@@ -62,8 +73,8 @@ mutation register {
 
 ### Get User Data
 ```graphql
-query getUser {
-  getUser(id: "61cbd5ca7a27eac7c494eb5b") {
+query getUser($id: ID!){
+  getUser(id: $id) {
     _id
     name
     email
