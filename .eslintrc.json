@@ -18,6 +18,7 @@
         "import/no-unresolved": "off",
         "import/extensions": "off",
         "no-underscore-dangle": "off",
+        "no-console": "off",
         "max-len": "warn",
         "no-unused-vars": "warn"
     }
