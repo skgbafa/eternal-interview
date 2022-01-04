@@ -3,27 +3,29 @@ import * as mongoDB from 'mongodb';
 import { ObjectId, Collection } from 'mongodb';
 
 import { User, Follower, DBConnection } from './types';
-class MongoDBConnection implements DBConnection{
+
+class MongoDBConnection implements DBConnection {
   private client: mongoDB.MongoClient;
+
   private database: mongoDB.Db | undefined;
+
   private collections: {
     users?: Collection;
     followers?: Collection;
   } = {};
 
   constructor(config: any) {
-
-    const { username, password, host, databaseName, collectionNames } = config.mongoDB;
+    const {
+      username, password, host, databaseName, collectionNames,
+    } = config.mongoDB;
     const connectionString = `mongodb+srv://${username}:${password}@${host}`;
 
     this.client = new mongoDB.MongoClient(connectionString);
     this.client.connect().then(() => {
-      
       this.database = this.client.db(databaseName);
       this.collections.users = this.database.collection(collectionNames.users);
       this.collections.followers = this.database.collection(collectionNames.followers);
       console.log(`Successfully connected to database: ${this.database.databaseName}`);
-   
     }).catch((err) => {
       console.log('Failed to connect to database');
       console.log(err);
@@ -73,11 +75,7 @@ class MongoDBConnection implements DBConnection{
     const result = await this.collections.followers.insertOne(follower);
     return result;
   }
-
 }
-
-
-
 
 export default MongoDBConnection;
 // export { MongoDBConnection, User, Follower, DBConnection };

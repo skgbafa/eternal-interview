@@ -1,14 +1,13 @@
-import { ApolloServer, gql} from 'apollo-server-express';
+import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core';
-  
+
 import UserDataSource from '../datasources/userDataSource';
 import FollowerDataSource from '../datasources/followerDataSource';
 
-import schema  from './schema';
+import schema from './schema';
 
 export default async (app: any, context: any) => {
-
-  const { config, mongoDBConnection } = context;
+  const { mongoDBConnection } = context;
   const userDataSource = new UserDataSource(mongoDBConnection);
   const followerDataSource = new FollowerDataSource(mongoDBConnection);
 
@@ -25,7 +24,7 @@ export default async (app: any, context: any) => {
     ],
     schema,
   });
-    
+
   await server.start();
 
   server.applyMiddleware({

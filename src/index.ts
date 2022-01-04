@@ -15,10 +15,11 @@ initializeGraphQL(app, context).then(() => {
   app.get('/', (req, res) => {
     res.json({ message: 'Server Online' });
   });
-    
+
   app.listen(port);
+
+  // eslint-disable-next-line no-console
   console.log(`[${process.env.NODE_ENV}] Running on localhost:${port}`);
 });
-
 
 export default app;
