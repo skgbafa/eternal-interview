@@ -4,8 +4,7 @@
         "es2021": true
     },
     "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/recommended"
+        "airbnb-base"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -16,21 +15,11 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "indent": [
-            "error",
-            2
-        ],
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
-        "quotes": [
-            "error",
-            "single"
-        ],
-        "semi": [
-            "error",
-            "always"
-        ]
+        "import/no-unresolved": "off",
+        "import/extensions": "off",
+        "no-underscore-dangle": "off",
+        "no-console": "off",
+        "max-len": "warn",
+        "no-unused-vars": "warn"
     }
 }

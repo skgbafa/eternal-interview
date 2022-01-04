@@ -7,15 +7,14 @@ import jwt from 'jsonwebtoken';
 import config from '../config';
 import { DBConnection, User } from '../connections/types';
 
-
-
 class UserDataSource extends DataSource {
   private mongoDBConnection: DBConnection;
+
   constructor(mongoDBConnection: DBConnection) {
     super();
     this.mongoDBConnection = mongoDBConnection;
   }
-  
+
   public async register(name:string, email:string, password:string, walletAddress: string) {
     try {
       // validate inputs
@@ -34,7 +33,7 @@ class UserDataSource extends DataSource {
 
       // hash password
       const hash = await bcrypt.hash(password, config.password.hashRounds);
-      
+
       // create user and update database
       const userData = new User(name, email, hash, walletAddress);
       const user = await this.mongoDBConnection.createUser(userData);
@@ -42,12 +41,11 @@ class UserDataSource extends DataSource {
       return {
         success: true,
         message: 'User created successfully',
-        token: this.signToken(user),
-        user: user,
+        token: UserDataSource.signToken(user),
+        user,
       };
-    
     } catch (error) {
-      const message = error && (error as Error).message || 'Unknown error';
+      const message = (error && (error as Error).message) || 'Unknown error';
 
       return {
         success: false,
@@ -63,9 +61,9 @@ class UserDataSource extends DataSource {
       if (!validator.isEmail(email)) {
         throw new Error('Invalid email');
       }
-      
+
       const user = await this.mongoDBConnection.login(email, password);
-      
+
       if (!user) {
         throw new Error('Invalid email or password');
       }
@@ -73,13 +71,11 @@ class UserDataSource extends DataSource {
       return {
         success: true,
         message: 'User created successfully',
-        token: this.signToken(user),
+        token: UserDataSource.signToken(user),
         user,
-      };        
-
-
+      };
     } catch (error) {
-      const  message = error && (error as Error).message || 'Unknown error';
+      const message = (error && (error as Error).message) || 'Unknown error';
       return {
         success: false,
         message,
@@ -87,8 +83,6 @@ class UserDataSource extends DataSource {
         user: null,
       };
     }
-   
-
   }
 
   public getUser() {
@@ -98,10 +92,9 @@ class UserDataSource extends DataSource {
 
   }
 
-  private signToken(user: User) {
+  static signToken(user: User) {
     return jwt.sign({ userId: user._id }, config.jwt.secret, { expiresIn: config.jwt.expiresIn });
   }
-
 }
 
 export default UserDataSource;

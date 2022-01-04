@@ -7,7 +7,7 @@ import * as emptyTypeDefs from '../../schemas/empty.graphql';
 import userResolver from './resolvers/user';
 
 const typeDefs = [userTypeDefs, emptyTypeDefs];
-const resolvers = [ userResolver]; 
+const resolvers = [userResolver];
 
 const schema = makeExecutableSchema({
   resolvers,

@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+
 dotenv.config();
 
 const config = {
@@ -7,7 +8,7 @@ const config = {
     secret: process.env.JWT_SECRET || '',
     expiresIn: '1d',
   },
-  password:{
+  password: {
     hashRounds: 10,
     minLength: 8,
   },
@@ -18,9 +19,9 @@ const config = {
     databaseName: process.env.DB_NAME || '',
     collectionNames: {
       users: 'users',
-      followers: 'followers'
-    }
-  }
+      followers: 'followers',
+    },
+  },
 };
 
 export default config;

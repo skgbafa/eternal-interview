@@ -1,4 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql';
+
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -25,7 +26,6 @@ export type Mutation = {
   register?: Maybe<User>;
 };
 
-
 export type MutationRegisterArgs = {
   email: Scalars['String'];
   password: Scalars['String'];
@@ -35,7 +35,6 @@ export type Query = {
   __typename?: 'Query';
   login?: Maybe<User>;
 };
-
 
 export type QueryLoginArgs = {
   email: Scalars['String'];
@@ -52,10 +51,7 @@ export type User = {
   walletAddress: Scalars['String'];
 };
 
-
-
 export type ResolverTypeWrapper<T> = Promise<T> | T;
-
 
 export type ResolverWithResolve<TResult, TParent, TContext, TArgs> = {
   resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
@@ -173,4 +169,3 @@ export type Resolvers<ContextType = any> = {
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };
-
