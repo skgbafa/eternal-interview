@@ -60,3 +60,19 @@ mutation register {
 }
 ```
 
+### Get User Data
+```graphql
+query getUser {
+  getUser(id: "61cbd5ca7a27eac7c494eb5b") {
+    _id
+    name
+    email
+    walletAddress
+    followerCount
+    followers {
+        name
+    }
+  }
+}
+```
+

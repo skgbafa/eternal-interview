@@ -86,8 +86,8 @@ class UserDataSource extends DataSource {
     }
   }
 
-  public getUser() {
-    
+  public getUser(id: string) {
+    return this.mongoDBConnection.getUserById(id);
   }
 
   public updateUser() {
