@@ -42,6 +42,7 @@ Updated at the bottom left. These headers are used for non-login and registratio
 ```graphql
 query login($email: String!, $password: String!) {
   login(email: $email, password: $password) {
+
     success
     token
     message
