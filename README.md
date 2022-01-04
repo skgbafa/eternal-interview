@@ -12,7 +12,7 @@ This is a server setup to showcase my ability and considerations when working on
 
 
 ## Deployment
-This app is deloyed on heroku at https://eternal-interveiw.herokuapp.com/graphql
+This app is deloyed on heroku at https://eternal-interveiw.herokuapp.com/graphql. You can install and run it locally with `yarn` and `yarn start`. You need to have a `.env` file with the same credentials as the one in the `.env.example` file (reach out to me for a working example at skgbafa@gmail.com)
 
 
 ## Testing
