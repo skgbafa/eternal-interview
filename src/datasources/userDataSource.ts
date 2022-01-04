@@ -24,7 +24,8 @@ class UserDataSource extends DataSource {
       if (!validator.isEmail(email)) {
         throw new Error('Invalid email');
       }
-      if (!validator.isLength(password, { min: config.password.minLength })) { // could do more validation with isStrongPassword
+      if (!validator.isLength(password, { min: config.password.minLength })) {
+        // could do more validation with isStrongPassword
         throw new Error('Password must be at least 8 characters long');
       }
       if (!validator.isHexadecimal(walletAddress)) { // could also check for eth address
@@ -86,6 +87,7 @@ class UserDataSource extends DataSource {
   }
 
   public getUser() {
+    
   }
 
   public updateUser() {
