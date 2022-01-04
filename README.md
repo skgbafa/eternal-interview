@@ -30,7 +30,7 @@ Updated at the bottom left. These headers are used for non-login and registratio
 
 ### Login
 ```graphql
-query {
+query login {
   login(email:"skgbafa@gmail.com", password:"eternal123") {
     success
     token
@@ -41,8 +41,8 @@ query {
 
 ### Register
 ```graphql
-mutation {
-  register(name: "sam", email:"skgbafa@gmail.com", password:"eternal123", walletAddress: "0x123f") {
+mutation register {
+  register(name: "sam", email:"skgbafa+3@gmail.com", password:"eternal123", walletAddress: "0x123f") {
     success
     token
     message
