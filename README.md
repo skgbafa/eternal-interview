@@ -7,8 +7,9 @@ This is a server setup to showcase my ability and considerations when working on
 - [x] Authentication
 - [x] Fetch User Account Data
 - [x] Update User Account Data
-- [ ] Add followers to a user
-- [ ] Remove followers to a user
+- [x] Add followers to a user
+- [x] Remove followers to a user
+- [ ] Populate followers on a user
 
 
 ## Deployment
@@ -79,13 +80,17 @@ mutation register($name: String!, $email: String!, $password: String!, $walletAd
 ```graphql
 query getUser($id: ID!){
   getUser(id: $id) {
-    _id
-    name
-    email
-    walletAddress
-    followerCount
-    followers {
-        name
+    success
+    message
+    user {
+      _id
+      name
+      email
+      walletAddress
+      followerCount
+      followers {
+          name
+      }
     }
   }
 }
@@ -105,13 +110,17 @@ This is comprised of 3 mutations. They need the related query variables to work.
 ```graphql
 mutation updateName($newName:String!) {
   updateName(name: $newName) {
-    _id
-    name
-    email
-    walletAddress
-    followerCount
-    followers {
-        name
+    success
+    message
+    user {
+      _id
+      name
+      email
+      walletAddress
+      followerCount
+      followers {
+          name
+      }
     }
   }
 }
@@ -121,13 +130,17 @@ mutation updateName($newName:String!) {
 ```graphql
 mutation updateEmail($newEmail:String!) {
   updateEmail(email: $newEmail) {
-    _id
-    name
-    email
-    walletAddress
-    followerCount
-    followers {
-        name
+    success
+    message
+    user {
+      _id
+      name
+      email
+      walletAddress
+      followerCount
+      followers {
+          name
+      }
     }
   }
 }
@@ -137,15 +150,48 @@ mutation updateEmail($newEmail:String!) {
 ```graphql
 mutation updateWalletAddress($newWalletAddress:String!) {
   updateWalletAddress(walletAddress: $newWalletAddress) {
-    _id
-    name
-    email
-    walletAddress
-    followerCount
-    followers {
-        name
+    success
+    message
+    user {
+      _id
+      name
+      email
+      walletAddress
+      followerCount
+      followers {
+          name
+      }
     }
   }
 }
 ```
 
+### Add/Remove Follower
+Adding and removing followers has 2 query variables, defined below.
+#### Example Query Variables
+```json
+{
+  "personToFollow": "61dc8a7d0ff87420c440b2a9",
+  "personToUnfollow": "61dc8a7d0ff87420c440b2a9"
+}
+```
+
+#### Add Follower
+```graphql
+mutation followUser($personToFollow:ID!) {
+  followUser(userId: $personToFollow) {
+    success
+    message
+  }
+}
+```
+
+#### Remove Follower
+```graphql
+mutation unfollowUser($personToUnfollow:ID!) {
+  unfollowUser(userId: $personToUnfollow) {
+    success
+    message
+  }
+}
+```
