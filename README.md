@@ -26,7 +26,7 @@ Below are some queries for testing the graphql endpoint
 Updated at the bottom left corner. These are variables injected into the query. This set should work for `login`, `register`, and `getUser` queries.
 ```json
 {
-  "id": "61cbd5ca7a27eac7c494eb5b",
+  "id": "61dc6174a62ec7d3dfec0569",
   "name": "Sam",
   "email": "skgbafa+1@gmail.com",
   "password": "eternal123",
@@ -38,7 +38,7 @@ Updated at the bottom left corner. These are variables injected into the query. 
 Updated at the bottom left. These headers are used for non-login and registration requests. Fee free to replace the auth token (the jwt text after "Bearer ") with the `token` recieved from the login or registration requests.
 ```json
 {
-  "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWNiZDVjYTdhMjdlYWM3YzQ5NGViNWIiLCJpYXQiOjE2NDEyODM0MDIsImV4cCI6MTY0MTM2OTgwMn0.yAQo5noHW2T5XV0EpVPo1ED78kS9OHVqQ4LX5h4cXYg"
+  "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWRjNjE3NGE2MmVjN2QzZGZlYzA1NjkiLCJpYXQiOjE2NDE4MzMyMjQsImV4cCI6MTY0MTkxOTYyNH0.o4j7xFGVVZY8Z11Nn21u_tEwVhXa9dYmi6XB0spjCpM"
 }
 ```
 
