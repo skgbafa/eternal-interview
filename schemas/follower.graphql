@@ -1,0 +1,13 @@
+type Query {
+    _empty: String
+}
+
+type Mutation {
+    followUser(userId: ID!): FollowResponse
+    unfollowUser(userId: ID!): FollowResponse
+}
+
+type FollowResponse {
+    success: Boolean!
+    message: String!
+}

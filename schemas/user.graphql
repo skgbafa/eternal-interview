@@ -1,19 +1,25 @@
 type Query {
     login(email: String!, password: String!): AuthResponse
-    getUser(id: ID!): User
+    getUser(id: ID!): UserResponse
 }
 
 type Mutation {
     register(name: String!, email: String!, password: String!, walletAddress: String!): AuthResponse
-    updateName(name: String!): User
-    updateEmail(email: String!): User
-    updateWalletAddress(walletAddress: String!): User
+    updateName(name: String!): UserResponse
+    updateEmail(email: String!): UserResponse
+    updateWalletAddress(walletAddress: String!): UserResponse
 }
 
 type AuthResponse {
   success: Boolean!
   message: String!
   token: String
+  user: User
+}
+
+type UserResponse {
+  success: Boolean!
+  message: String
   user: User
 }
 

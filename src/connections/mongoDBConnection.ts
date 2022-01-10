@@ -32,11 +32,11 @@ class MongoDBConnection implements DBConnection {
     });
   }
 
-  public async getUserById(id: string): Promise<any> {
+  public async getUserById(_id: ObjectId): Promise<any> {
     if (!this.collections.users) {
       throw new Error('Database connection not established');
     }
-    const query = { _id: new ObjectId(id) };
+    const query = { _id: new ObjectId(_id) };
     const user = await this.collections.users.findOne(query);
     return user;
   }
@@ -96,6 +96,23 @@ class MongoDBConnection implements DBConnection {
     return result;
   }
 
+  public async deleteFollower(follower: Follower): Promise<any> {
+    if (!this.collections.followers) {
+      throw new Error('Database connection not established');
+    }
+    const result = await this.collections.followers.findOneAndDelete(follower);
+    return result.value;
+  }
+
+  public async checkIfFollowing(leader: ObjectId, follower: ObjectId): Promise<any> {
+    if (!this.collections.followers) {
+      throw new Error('Database connection not established');
+    }
+    const query = { leader, follower };
+    const result = await this.collections.followers.findOne(query);
+    return result;
+  }
+
   public async getFollowers(leader: ObjectId): Promise<any> {
     if (!this.collections.followers) {
       throw new Error('Database connection not established');
@@ -107,4 +124,3 @@ class MongoDBConnection implements DBConnection {
 }
 
 export default MongoDBConnection;
-// export { MongoDBConnection, User, Follower, DBConnection };
