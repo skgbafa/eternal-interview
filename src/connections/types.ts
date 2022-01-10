@@ -25,12 +25,14 @@ class Follower {
 }
 
 interface DBConnection {
-  getUserByEmail(email: string): Promise<any>;
-  getUserById(id: string): Promise<any>;
   createUser(user: User): Promise<any>;
-  updateUserData(user: User): Promise<any>;
   login(email: string, givenPassword: string): Promise<any>;
+  getUserById(id: ObjectId): Promise<any>;
+  getUserByEmail(email: string): Promise<any>;
+  updateUserData(user: User): Promise<any>;
   createFollower(follower: Follower): Promise<any>;
+  deleteFollower(followerData: Follower): Promise<any>;
+  checkIfFollowing(leader: ObjectId, follower: ObjectId): Promise<any>;
   getFollowers(userId: ObjectId): Promise<any>;
 }
 

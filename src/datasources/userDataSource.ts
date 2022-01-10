@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import { DataSource } from 'apollo-datasource';
 import validator from 'validator';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { ObjectId } from 'mongodb';
 
 import config from '../config';
 import { DBConnection, User } from '../connections/types';
@@ -42,12 +42,13 @@ class UserDataSource extends DataSource {
       // create user and update database
       const userData = new User(name, email, hash, walletAddress);
       const user = await this.mongoDBConnection.createUser(userData);
+      const userWithFollowers = await this.addFollowersToUser(user);
 
       return {
         success: true,
         message: 'User created successfully',
         token: UserDataSource.signToken(user),
-        user,
+        user: userWithFollowers,
       };
     } catch (error) {
       const message = (error && (error as Error).message) || 'Unknown error';
@@ -72,12 +73,12 @@ class UserDataSource extends DataSource {
       if (!user) {
         throw new Error('Invalid email or password');
       }
-
+      const userWithFollowers = await this.addFollowersToUser(user);
       return {
         success: true,
-        message: 'User created successfully',
+        message: 'User logged in successfully',
         token: UserDataSource.signToken(user),
-        user,
+        user: userWithFollowers,
       };
     } catch (error) {
       const message = (error && (error as Error).message) || 'Unknown error';
@@ -90,42 +91,94 @@ class UserDataSource extends DataSource {
     }
   }
 
-  public async getUser(id: string) {
-    const user = await this.mongoDBConnection.getUserById(id);
-    return this.addFollowersToUser(user);
+  public async getUser(id: ObjectId) {
+    try {
+      const user = await this.mongoDBConnection.getUserById(id);
+      const userWithFollowers = await this.addFollowersToUser(user);
+      return {
+        success: true,
+        user: userWithFollowers,
+      };
+    } catch (error) {
+      const message = (error && (error as Error).message) || 'Unknown error';
+      return {
+        success: false,
+        message,
+        user: null,
+      };
+    }
   }
 
   public async updateName(user: User, name: string) {
-    if (!validator.isAlpha(name)) {
-      throw new Error('Invalid Name');
+    try {
+      if (!validator.isAlpha(name)) {
+        throw new Error('Invalid Name');
+      }
+      const updateData = { _id: user._id, name };
+      const updatedUser = await this.mongoDBConnection.updateUserData(updateData);
+      const userWithFollowers = await this.addFollowersToUser(updatedUser);
+      return {
+        success: true,
+        user: userWithFollowers,
+      };
+    } catch (error) {
+      const message = (error && (error as Error).message) || 'Unknown error';
+      return {
+        success: false,
+        message,
+        user: null,
+      };
     }
-    const updateData = { _id: user._id, name };
-    const updatedUser = await this.mongoDBConnection.updateUserData(updateData);
-    return this.addFollowersToUser(updatedUser);
   }
 
   public async updateEmail(user: User, email: string) {
-    if (!validator.isEmail(email)) {
-      throw new Error('Invalid email');
-    }
+    try {
+      if (!validator.isEmail(email)) {
+        throw new Error('Invalid email');
+      }
 
-    const existingUser = await this.checkIfEmailExists(email);
-    if (existingUser) {
-      throw new Error('Email already exists');
-    }
+      const existingUser = await this.checkIfEmailExists(email);
+      if (existingUser) {
+        throw new Error('Email already exists');
+      }
 
-    const updateData = { _id: user._id, email };
-    const updatedUser = await this.mongoDBConnection.updateUserData(updateData);
-    return this.addFollowersToUser(updatedUser);
+      const updateData = { _id: user._id, email };
+      const updatedUser = await this.mongoDBConnection.updateUserData(updateData);
+      const userWithFollowers = await this.addFollowersToUser(updatedUser);
+      return {
+        success: true,
+        user: userWithFollowers,
+      };
+    } catch (error) {
+      const message = (error && (error as Error).message) || 'Unknown error';
+      return {
+        success: false,
+        message,
+        user: null,
+      };
+    }
   }
 
   public async updateWalletAddress(user: User, walletAddress: string) {
-    if (!validator.isHexadecimal(walletAddress)) { // could also check for eth address
-      throw new Error('Invalid wallet address');
+    try {
+      if (!validator.isHexadecimal(walletAddress)) { // could also check for eth address
+        throw new Error('Invalid wallet address');
+      }
+      const updateData = { _id: user._id, walletAddress };
+      const updatedUser = await this.mongoDBConnection.updateUserData(updateData);
+      const userWithFollowers = await this.addFollowersToUser(updatedUser);
+      return {
+        success: true,
+        user: userWithFollowers,
+      };
+    } catch (error) {
+      const message = (error && (error as Error).message) || 'Unknown error';
+      return {
+        success: false,
+        message,
+        user: null,
+      };
     }
-    const updateData = { _id: user._id, walletAddress };
-    const updatedUser = await this.mongoDBConnection.updateUserData(updateData);
-    return this.addFollowersToUser(updatedUser);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -135,6 +188,7 @@ class UserDataSource extends DataSource {
     // check old password
     // hash new password
     // update password
+    return {};
   }
 
   private async addFollowersToUser(user: User) {
