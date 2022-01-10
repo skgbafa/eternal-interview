@@ -22,7 +22,7 @@ class UserDataSource extends DataSource {
   public async register(name:string, email:string, password:string, walletAddress: string) {
     try {
       // validate inputs
-      if (!validator.isAlpha(name)) {
+      if (!validator.isAscii(name)) {
         throw new Error('Invalid Name');
       }
       if (!validator.isEmail(email)) {
@@ -114,7 +114,7 @@ class UserDataSource extends DataSource {
 
   public async updateName(user: User, name: string) {
     try {
-      if (!validator.isAlpha(name)) {
+      if (!validator.isAscii(name)) {
         throw new Error('Invalid Name');
       }
       const updateData = { _id: user._id, name };
