@@ -26,7 +26,9 @@ class FollowerDataSource extends DataSource {
       }
       const followerData = new Follower(leader, follower);
       const response = await this.mongoDBConnection.createFollower(followerData);
-      console.log(response);
+      if (!response.insertedId) {
+        throw new Error('Failed to follow user');
+      }
       return {
         success: true,
         message: 'User followed successfully',
@@ -49,7 +51,6 @@ class FollowerDataSource extends DataSource {
 
       const followerData = new Follower(leader, follower);
       const response = await this.mongoDBConnection.deleteFollower(followerData);
-      console.log(response);
       if (!response) {
         throw new Error('Follow record does not exist');
       }

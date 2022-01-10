@@ -100,8 +100,6 @@ class MongoDBConnection implements DBConnection {
     if (!this.collections.followers) {
       throw new Error('Database connection not established');
     }
-    // const query = { leader, follower };
-    // console.log(query);
     const result = await this.collections.followers.findOneAndDelete(follower);
     return result.value;
   }
@@ -126,4 +124,3 @@ class MongoDBConnection implements DBConnection {
 }
 
 export default MongoDBConnection;
-// export { MongoDBConnection, User, Follower, DBConnection };
