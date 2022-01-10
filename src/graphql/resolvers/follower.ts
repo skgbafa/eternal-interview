@@ -16,7 +16,10 @@ const resolvers = {
     },
   },
   Query: {
-
+    getFollowers: (_: any, { userId }: any, { dataSources, user }: any) => {
+      validateUser(user);
+      return dataSources.followerDatasource.getFollowers(userId);
+    },
   },
 };
 

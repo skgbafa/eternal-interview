@@ -14,12 +14,14 @@ class MongoDBConnection implements DBConnection {
     followers?: Collection;
   } = {};
 
+  config: any;
+
   constructor(config: any) {
     const {
       username, password, host, databaseName, collectionNames,
     } = config.mongoDB;
     const connectionString = `mongodb+srv://${username}:${password}@${host}`;
-
+    this.config = config;
     this.client = new mongoDB.MongoClient(connectionString);
     this.client.connect().then(() => {
       this.database = this.client.db(databaseName);
@@ -117,9 +119,25 @@ class MongoDBConnection implements DBConnection {
     if (!this.collections.followers) {
       throw new Error('Database connection not established');
     }
-    const query = { leader };
-    const followers = await this.collections.followers.find(query).toArray();
-    return followers;
+    const query = { leader: leader.toString() };
+    const pipeline = [
+      { $match: query },
+      { $addFields: { follower_id: { $toObjectId: '$follower' } } },
+      {
+        $lookup: {
+          from: this.config.mongoDB.collectionNames.users,
+          localField: 'follower_id',
+          foreignField: '_id',
+          as: 'followers',
+        },
+      },
+    ];
+
+    const followers = await this.collections.followers.aggregate(pipeline).toArray();
+    if (followers.length > 0) {
+      return followers[0].followers;
+    }
+    return [];
   }
 }
 
