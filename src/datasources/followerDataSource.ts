@@ -17,6 +17,14 @@ class FollowerDataSource extends DataSource {
   public unfollow(leader: string, follower: string) {
 
   }
+
+  public async getFollowers(leader: string) {
+    const followers = await this.mongoDBConnection.getFollowers(leader);
+    return {
+      followers,
+      followerCount: followers.length,
+    };
+  }
 }
 
 export default FollowerDataSource;

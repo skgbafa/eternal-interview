@@ -8,8 +8,8 @@ import schema from './schema';
 
 export default async (app: any, context: any) => {
   const { mongoDBConnection } = context;
-  const userDataSource = new UserDataSource(mongoDBConnection);
   const followerDataSource = new FollowerDataSource(mongoDBConnection);
+  const userDataSource = new UserDataSource(mongoDBConnection, followerDataSource);
 
   const server = new ApolloServer({
     context: ({ req }: any) => ({ user: req.user }),
