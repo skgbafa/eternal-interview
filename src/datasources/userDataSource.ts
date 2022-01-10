@@ -128,6 +128,15 @@ class UserDataSource extends DataSource {
     return this.addFollowersToUser(updatedUser);
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  public async updatePassword(user: User, oldPassword: string, newPassword: string) {
+    // will skip for now
+    // check new password valid
+    // check old password
+    // hash new password
+    // update password
+  }
+
   private async addFollowersToUser(user: User) {
     const followerData = await this.followerDataSource.getFollowers(user._id);
     return { ...user, ...followerData };
