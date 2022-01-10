@@ -108,6 +108,12 @@ class UserDataSource extends DataSource {
     if (!validator.isEmail(email)) {
       throw new Error('Invalid email');
     }
+
+    const existingUser = await this.checkIfEmailExists(email);
+    if (existingUser) {
+      throw new Error('Email already exists');
+    }
+
     const updateData = { _id: user._id, email };
     const updatedUser = await this.mongoDBConnection.updateUserData(updateData);
     return this.addFollowersToUser(updatedUser);
@@ -125,6 +131,10 @@ class UserDataSource extends DataSource {
   private async addFollowersToUser(user: User) {
     const followerData = await this.followerDataSource.getFollowers(user._id);
     return { ...user, ...followerData };
+  }
+
+  private checkIfEmailExists(email: string) {
+    return this.mongoDBConnection.getUserByEmail(email);
   }
 
   static signToken(user: User) {

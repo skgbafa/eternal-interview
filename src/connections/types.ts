@@ -25,6 +25,7 @@ class Follower {
 }
 
 interface DBConnection {
+  getUserByEmail(email: string): Promise<any>;
   getUserById(id: string): Promise<any>;
   createUser(user: User): Promise<any>;
   updateUserData(user: User): Promise<any>;

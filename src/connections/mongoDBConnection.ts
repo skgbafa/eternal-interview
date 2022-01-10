@@ -79,6 +79,15 @@ class MongoDBConnection implements DBConnection {
     return null;
   }
 
+  public async getUserByEmail(email: string): Promise<any> {
+    if (!this.collections.users) {
+      throw new Error('Database connection not established');
+    }
+    const query = { email };
+    const user = await this.collections.users.findOne(query);
+    return user;
+  }
+
   public async createFollower(follower: Follower): Promise<any> {
     if (!this.collections.followers) {
       throw new Error('Database connection not established');
