@@ -11,7 +11,8 @@ This is a server setup to showcase my ability and considerations when working on
 - [x] Remove followers to a user
 - [x] Populate followers on a user
 
-
+## Known Issues
+There is an issue where all folowers are not being populated. Was discovered when testing the simulator. Will fix in the future.
 ## Deployment
 This app is deloyed on heroku at https://eternal-interveiw.herokuapp.com/graphql.
 
@@ -19,6 +20,8 @@ You can install and run it locally with `yarn` and `yarn start`.
 
 You need to have a `.env` file with the same credentials as the one in the `.env.example` file (reach out to me for a working example at skgbafa@gmail.com)
 
+## Simulation
+You can run a small simulation of the app by running `yarn simulation`. This will create multiple users and have them follow each other. It runs against the public API. It generates a `sim.csv` with the account data, which you can use to login and make additonal requests.
 
 ## Testing
 Below are some queries for testing the graphql endpoint
