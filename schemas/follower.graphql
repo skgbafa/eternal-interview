@@ -1,5 +1,5 @@
 type Query {
-    _empty: String
+    getFollowers(userId: ID!): Followers
 }
 
 type Mutation {
@@ -10,4 +10,9 @@ type Mutation {
 type FollowResponse {
     success: Boolean!
     message: String!
+}
+
+type Followers {
+    followers: [User!]!
+    followerCount: Int!
 }

@@ -10,8 +10,8 @@ class User {
     public email?: string,
     private password?: string,
     public walletAddress?: string,
-    public followerCount?: number,
-    public followers?: Array<User>,
+    // public followerCount?: number,
+    // public followers?: Array<User>,
     public _id?: ObjectId,
   ) {}
 }
