@@ -90,4 +90,62 @@ query getUser($id: ID!){
   }
 }
 ```
+### Update User Data
+This is comprised of 3 mutations. They need the related query variables to work.
+#### Example Query Variables
+```json
+{
+  "newName": "Samuel",
+	"newEmail": "skgbafa+1@gmail.com",
+  "newWalletAddress": "0x0f0f0f"
+}
+```
+
+#### Update User Name
+```graphql
+mutation updateName($newName:String!) {
+  updateName(name: $newName) {
+    _id
+    name
+    email
+    walletAddress
+    followerCount
+    followers {
+        name
+    }
+  }
+}
+```
+
+#### Update User Email
+```graphql
+mutation updateEmail($newEmail:String!) {
+  updateEmail(email: $newEmail) {
+    _id
+    name
+    email
+    walletAddress
+    followerCount
+    followers {
+        name
+    }
+  }
+}
+```
+
+#### Update User Wallet Address
+```graphql
+mutation updateWalletAddress($newWalletAddress:String!) {
+  updateWalletAddress(walletAddress: $newWalletAddress) {
+    _id
+    name
+    email
+    walletAddress
+    followerCount
+    followers {
+        name
+    }
+  }
+}
+```
 

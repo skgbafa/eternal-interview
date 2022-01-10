@@ -30,7 +30,7 @@ interface DBConnection {
   updateUserData(user: User): Promise<any>;
   login(email: string, givenPassword: string): Promise<any>;
   createFollower(follower: Follower): Promise<any>;
-  getFollowers(userId: string): Promise<any>;
+  getFollowers(userId: ObjectId): Promise<any>;
 }
 
 export { User, Follower, DBConnection };

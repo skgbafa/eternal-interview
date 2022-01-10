@@ -92,23 +92,43 @@ class UserDataSource extends DataSource {
 
   public async getUser(id: string) {
     const user = await this.mongoDBConnection.getUserById(id);
-    const followerData = await this.followerDataSource.getFollowers(id);
-    console.log(followerData);
-    return { ...user, ...followerData };
+    return this.addFollowersToUser(user);
   }
 
   public async updateName(user: User, name: string) {
     if (!validator.isAlpha(name)) {
       throw new Error('Invalid Name');
     }
-
     const updateData = { _id: user._id, name };
     const updatedUser = await this.mongoDBConnection.updateUserData(updateData);
-    return updatedUser;
+    return this.addFollowersToUser(updatedUser);
+  }
+
+  public async updateEmail(user: User, email: string) {
+    if (!validator.isEmail(email)) {
+      throw new Error('Invalid email');
+    }
+    const updateData = { _id: user._id, email };
+    const updatedUser = await this.mongoDBConnection.updateUserData(updateData);
+    return this.addFollowersToUser(updatedUser);
+  }
+
+  public async updateWalletAddress(user: User, walletAddress: string) {
+    if (!validator.isHexadecimal(walletAddress)) { // could also check for eth address
+      throw new Error('Invalid wallet address');
+    }
+    const updateData = { _id: user._id, walletAddress };
+    const updatedUser = await this.mongoDBConnection.updateUserData(updateData);
+    return this.addFollowersToUser(updatedUser);
+  }
+
+  private async addFollowersToUser(user: User) {
+    const followerData = await this.followerDataSource.getFollowers(user._id);
+    return { ...user, ...followerData };
   }
 
   static signToken(user: User) {
-    return jwt.sign({ userId: user._id }, config.jwt.secret, { expiresIn: config.jwt.expiresIn });
+    return jwt.sign({ _id: user._id }, config.jwt.secret, { expiresIn: config.jwt.expiresIn });
   }
 }
 
