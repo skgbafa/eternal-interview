@@ -9,7 +9,7 @@ This is a server setup to showcase my ability and considerations when working on
 - [x] Update User Account Data
 - [x] Add followers to a user
 - [x] Remove followers to a user
-- [ ] Populate followers on a user
+- [x] Populate followers on a user
 
 
 ## Deployment
@@ -167,7 +167,7 @@ mutation updateWalletAddress($newWalletAddress:String!) {
 ```
 
 ### Add/Remove Follower
-Adding and removing followers has 2 query variables, defined below.
+Adding and removing followers has 2 query variables, defined below. You can add and remove followers as well as request a list of followers directly.
 #### Example Query Variables
 ```json
 {
@@ -192,6 +192,18 @@ mutation unfollowUser($personToUnfollow:ID!) {
   unfollowUser(userId: $personToUnfollow) {
     success
     message
+  }
+}
+```
+
+#### Get Followers
+```graphql
+query getFollowers($id: ID!){
+  getFollowers(userId: $id) {
+    followerCount
+    followers {
+      name
+    }
   }
 }
 ```
