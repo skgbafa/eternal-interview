@@ -6,7 +6,7 @@ This is a server setup to showcase my ability and considerations when working on
 - [x] Registration
 - [x] Authentication
 - [x] Fetch User Account Data
-- [ ] Update User Account Data
+- [x] Update User Account Data
 - [ ] Add followers to a user
 - [ ] Remove followers to a user
 
