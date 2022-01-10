@@ -36,7 +36,7 @@ Updated at the bottom left corner. These are variables injected into the query. 
 ```
 
 ### HTTP Headers
-Updated at the bottom left. These headers are used for non-login and registration requests. Fee free to replace the auth token (the jwt text after "Bearer ") with the `token` recieved from the login or registration requests.
+Updated at the bottom left. These headers are used for non-login and registration requests. Fee free to replace the auth token (the jwt text after "Bearer ") with the `token` recieved from the login or registration requests. The auth token is used to identify the user in other operations (like `updateName`).
 ```json
 {
   "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWRjNjE3NGE2MmVjN2QzZGZlYzA1NjkiLCJpYXQiOjE2NDE4MzMyMjQsImV4cCI6MTY0MTkxOTYyNH0.o4j7xFGVVZY8Z11Nn21u_tEwVhXa9dYmi6XB0spjCpM"

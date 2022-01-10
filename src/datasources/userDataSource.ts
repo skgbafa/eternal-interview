@@ -93,6 +93,9 @@ class UserDataSource extends DataSource {
 
   public async getUser(id: ObjectId) {
     try {
+      if (!validator.isMongoId(id.toString())) {
+        throw new Error('Invalid id');
+      }
       const user = await this.mongoDBConnection.getUserById(id);
       const userWithFollowers = await this.addFollowersToUser(user);
       return {
