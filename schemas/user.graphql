@@ -5,7 +5,9 @@ type Query {
 
 type Mutation {
     register(name: String!, email: String!, password: String!, walletAddress: String!): AuthResponse
-
+    updateName(name: String!): User
+    updateEmail(email: String!): User
+    updateWalletAddress(walletAddress: String!): User
 }
 
 type AuthResponse {

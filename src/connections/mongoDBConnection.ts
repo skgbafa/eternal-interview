@@ -53,6 +53,17 @@ class MongoDBConnection implements DBConnection {
     return this.collections.users.findOne({ _id: result.insertedId });
   }
 
+  public async updateUserData(user: User): Promise<any> {
+    if (!this.collections.users) {
+      throw new Error('Database connection not established');
+    }
+    const query = { _id: new ObjectId(user._id) };
+    const updateData = { ...user };
+    delete updateData._id;
+    const result = await this.collections.users.findOneAndUpdate(query, { $set: updateData }, { returnDocument: 'after' });
+    return result.value;
+  }
+
   public async login(email: string, givenPassword: string): Promise<any> {
     if (!this.collections.users) {
       throw new Error('Database connection not established');
@@ -68,12 +79,30 @@ class MongoDBConnection implements DBConnection {
     return null;
   }
 
+  public async getUserByEmail(email: string): Promise<any> {
+    if (!this.collections.users) {
+      throw new Error('Database connection not established');
+    }
+    const query = { email };
+    const user = await this.collections.users.findOne(query);
+    return user;
+  }
+
   public async createFollower(follower: Follower): Promise<any> {
     if (!this.collections.followers) {
       throw new Error('Database connection not established');
     }
     const result = await this.collections.followers.insertOne(follower);
     return result;
+  }
+
+  public async getFollowers(leader: ObjectId): Promise<any> {
+    if (!this.collections.followers) {
+      throw new Error('Database connection not established');
+    }
+    const query = { leader };
+    const followers = await this.collections.followers.find(query).toArray();
+    return followers;
   }
 }
 

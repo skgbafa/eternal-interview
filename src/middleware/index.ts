@@ -6,7 +6,7 @@ import authentication from './authentication';
 const initializeMiddleware = (app: any, context: any) => {
   // setup boilderplate middleware
   app.use(compression());
-  app.use(helmet());
+  // app.use(helmet());
 
   // handle authentication
   app.use(authentication(context));

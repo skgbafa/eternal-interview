@@ -6,7 +6,7 @@ This is a server setup to showcase my ability and considerations when working on
 - [x] Registration
 - [x] Authentication
 - [x] Fetch User Account Data
-- [ ] Update User Account Data
+- [x] Update User Account Data
 - [ ] Add followers to a user
 - [ ] Remove followers to a user
 
@@ -26,7 +26,7 @@ Below are some queries for testing the graphql endpoint
 Updated at the bottom left corner. These are variables injected into the query. This set should work for `login`, `register`, and `getUser` queries.
 ```json
 {
-  "id": "61cbd5ca7a27eac7c494eb5b",
+  "id": "61dc6174a62ec7d3dfec0569",
   "name": "Sam",
   "email": "skgbafa+1@gmail.com",
   "password": "eternal123",
@@ -38,7 +38,7 @@ Updated at the bottom left corner. These are variables injected into the query. 
 Updated at the bottom left. These headers are used for non-login and registration requests. Fee free to replace the auth token (the jwt text after "Bearer ") with the `token` recieved from the login or registration requests.
 ```json
 {
-  "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWNiZDVjYTdhMjdlYWM3YzQ5NGViNWIiLCJpYXQiOjE2NDEyODM0MDIsImV4cCI6MTY0MTM2OTgwMn0.yAQo5noHW2T5XV0EpVPo1ED78kS9OHVqQ4LX5h4cXYg"
+  "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWRjNjE3NGE2MmVjN2QzZGZlYzA1NjkiLCJpYXQiOjE2NDE4MzMyMjQsImV4cCI6MTY0MTkxOTYyNH0.o4j7xFGVVZY8Z11Nn21u_tEwVhXa9dYmi6XB0spjCpM"
 }
 ```
 
@@ -79,6 +79,64 @@ mutation register($name: String!, $email: String!, $password: String!, $walletAd
 ```graphql
 query getUser($id: ID!){
   getUser(id: $id) {
+    _id
+    name
+    email
+    walletAddress
+    followerCount
+    followers {
+        name
+    }
+  }
+}
+```
+### Update User Data
+This is comprised of 3 mutations. They need the related query variables to work.
+#### Example Query Variables
+```json
+{
+  "newName": "Samuel",
+	"newEmail": "skgbafa+1@gmail.com",
+  "newWalletAddress": "0x0f0f0f"
+}
+```
+
+#### Update User Name
+```graphql
+mutation updateName($newName:String!) {
+  updateName(name: $newName) {
+    _id
+    name
+    email
+    walletAddress
+    followerCount
+    followers {
+        name
+    }
+  }
+}
+```
+
+#### Update User Email
+```graphql
+mutation updateEmail($newEmail:String!) {
+  updateEmail(email: $newEmail) {
+    _id
+    name
+    email
+    walletAddress
+    followerCount
+    followers {
+        name
+    }
+  }
+}
+```
+
+#### Update User Wallet Address
+```graphql
+mutation updateWalletAddress($newWalletAddress:String!) {
+  updateWalletAddress(walletAddress: $newWalletAddress) {
     _id
     name
     email

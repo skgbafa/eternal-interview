@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 
 export interface UserProps {
   iat?: number;
-  id?: string;
+  _id?: string;
   userId?: string;
 }
 

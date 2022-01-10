@@ -6,13 +6,17 @@ import jwt from 'jsonwebtoken';
 
 import config from '../config';
 import { DBConnection, User } from '../connections/types';
+import FollowerDataSource from './followerDataSource';
 
 class UserDataSource extends DataSource {
   private mongoDBConnection: DBConnection;
 
-  constructor(mongoDBConnection: DBConnection) {
+  private followerDataSource: FollowerDataSource;
+
+  constructor(mongoDBConnection: DBConnection, followerDataSource: FollowerDataSource) {
     super();
     this.mongoDBConnection = mongoDBConnection;
+    this.followerDataSource = followerDataSource;
   }
 
   public async register(name:string, email:string, password:string, walletAddress: string) {
@@ -86,16 +90,64 @@ class UserDataSource extends DataSource {
     }
   }
 
-  public getUser(id: string) {
-    return this.mongoDBConnection.getUserById(id);
+  public async getUser(id: string) {
+    const user = await this.mongoDBConnection.getUserById(id);
+    return this.addFollowersToUser(user);
   }
 
-  public updateUser() {
+  public async updateName(user: User, name: string) {
+    if (!validator.isAlpha(name)) {
+      throw new Error('Invalid Name');
+    }
+    const updateData = { _id: user._id, name };
+    const updatedUser = await this.mongoDBConnection.updateUserData(updateData);
+    return this.addFollowersToUser(updatedUser);
+  }
 
+  public async updateEmail(user: User, email: string) {
+    if (!validator.isEmail(email)) {
+      throw new Error('Invalid email');
+    }
+
+    const existingUser = await this.checkIfEmailExists(email);
+    if (existingUser) {
+      throw new Error('Email already exists');
+    }
+
+    const updateData = { _id: user._id, email };
+    const updatedUser = await this.mongoDBConnection.updateUserData(updateData);
+    return this.addFollowersToUser(updatedUser);
+  }
+
+  public async updateWalletAddress(user: User, walletAddress: string) {
+    if (!validator.isHexadecimal(walletAddress)) { // could also check for eth address
+      throw new Error('Invalid wallet address');
+    }
+    const updateData = { _id: user._id, walletAddress };
+    const updatedUser = await this.mongoDBConnection.updateUserData(updateData);
+    return this.addFollowersToUser(updatedUser);
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  public async updatePassword(user: User, oldPassword: string, newPassword: string) {
+    // will skip for now
+    // check new password valid
+    // check old password
+    // hash new password
+    // update password
+  }
+
+  private async addFollowersToUser(user: User) {
+    const followerData = await this.followerDataSource.getFollowers(user._id);
+    return { ...user, ...followerData };
+  }
+
+  private checkIfEmailExists(email: string) {
+    return this.mongoDBConnection.getUserByEmail(email);
   }
 
   static signToken(user: User) {
-    return jwt.sign({ userId: user._id }, config.jwt.secret, { expiresIn: config.jwt.expiresIn });
+    return jwt.sign({ _id: user._id }, config.jwt.secret, { expiresIn: config.jwt.expiresIn });
   }
 }
 
