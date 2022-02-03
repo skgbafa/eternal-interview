@@ -16,7 +16,7 @@ initializeMiddleware(app, context);
 
 initializeGraphQL(app, context).then(() => {
   app.get('/', (req, res) => {
-    res.json({ message: 'Server Online' });
+    res.json({ message: 'Server Online! Check out /graphql' });
   });
 
   app.listen(port);
